@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './src/app.js',
@@ -10,6 +11,15 @@ module.exports = {
     },
     module: {
         loaders: [{
+                test: /.js$/,
+                exclude: path.resolve(__dirname, 'node_modules'),
+                include: path.resolve(__dirname, 'src'),
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            },
+            {
                 test: /.css$/,
                 loader: 'style-loader!css-loader!postcss-loader'
             },
@@ -22,6 +32,10 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html'
-        })
+        }),
+        new CopyWebpackPlugin([{
+            from: './src/images/',
+            to: 'images'
+        }])
     ]
 };
