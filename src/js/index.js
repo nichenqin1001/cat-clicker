@@ -1,3 +1,5 @@
+require('jquery');
+
 function getDomNodeArray(selector) {
     var elemCollection = document.querySelectorAll(selector);
 

@@ -1,4 +1,5 @@
 var path = require('path');
+var Webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -30,6 +31,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new Webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
         new HtmlWebpackPlugin({
             template: 'index.html'
         }),
