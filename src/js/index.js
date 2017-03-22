@@ -12,7 +12,15 @@ var Cat = function (name) {
     this.count = 0;
 };
 
-Cat.prototype.render = function (container, index) {
+Cat.prototype.renderNav = function (navBar, index) {
+    var catCategory = document.createElement('img');
+    catCategory.className = 'cat__category';
+    catCategory.src = this.src;
+    catCategory.setAttribute('cat-index', index);
+    navBar.appendChild(catCategory);
+};
+
+Cat.prototype.renderContainer = function (container, index) {
     var catContainer = document.createElement('div');
     container.appendChild(catContainer);
     catContainer.classList.add('cat__container');
@@ -20,8 +28,8 @@ Cat.prototype.render = function (container, index) {
     var catImg = document.createElement('img');
     catContainer.appendChild(catImg);
     catImg.classList.add('cat__img');
-    catImg.src = this.src;
     catImg.setAttribute('cat-index', index);
+    catImg.src = this.src;
 
     var catName = document.createElement('div');
     catContainer.appendChild(catName);
@@ -36,22 +44,54 @@ Cat.prototype.render = function (container, index) {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    var cats = [new Cat('candy'), new Cat('momo')];
+    // 实例化五只猫
+    var cats = [
+        new Cat('candy'),
+        new Cat('momo'),
+        new Cat('natsume'),
+        new Cat('lion'),
+        new Cat('beauty')
+    ];
 
-    var container = document.querySelector('.container');
+    // 分别获取左侧nav区域及右侧container区域
+    var navBar = document.querySelector('#navBar');
+    var container = document.querySelector('#container');
+
+    // 在navbar中显示创建所有五只猫
     for (var c = 0; c < cats.length; c++) {
         var cat = cats[c];
-        cat.render(container, c);
+        cat.renderNav(navBar, c);
     }
 
-    var catImgs = getDomNodeArray('.cat__img');
-    var catCounters = getDomNodeArray('.cat__counter');
+    // 初次进入时在屏幕右侧container区域绘制一只猫
+    cats[0].renderContainer(container, 0);
 
-    catImgs.forEach(function (catImg) {
+    // 为navbar中所有照片添加点击事件 
+    var catCategories = getDomNodeArray('.cat__category');
+
+    catCategories.forEach(function (catCategory) {
+        catCategory.addEventListener('click', function () {
+            container.innerHTML = "";
+            var index = this.getAttribute('cat-index');
+            cats[index].renderContainer(container, index);
+
+            // 每次更新猫咪后重新设置点击事件
+            catClicker();
+        });
+    });
+
+    // 为猫咪照片添加点击照片
+    function catClicker() {
+        var catImg = document.querySelector('.cat__img');
+        var catCounter = document.querySelector('.cat__counter');
+
         catImg.addEventListener('click', function () {
             var index = this.getAttribute('cat-index');
             cats[index].count++;
-            catCounters[index].innerText = cats[index].count;
+            catCounter.textContent = cats[index].count;
         });
-    });
+    }
+
+    catClicker();
+
 });
