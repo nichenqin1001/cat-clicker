@@ -16,7 +16,8 @@ body {
     background-color: #F7F9F9;
 }
 
-.cat {
+.cat__container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,31 +26,38 @@ body {
     height: 100%;
 }
 
-.cat__container {
-    flex: 6;
-    display: flex;
-    width: 100%;
-    height: 100%;
+@media only screen and (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+    }
+    .cat__img {
+        width: 300px;
+        height: 200px;
+    }
 }
 
 .cat__img {
     max-height: 420px;
     max-width: 640px;
+    margin-bottom: 10px;
 }
 
-.cat__name {}
+.cat__name {
+    font-weight: 400;
+}
 
 .cat__counter {
-    flex: 3;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
     margin: 10px;
-    height: 180px;
-    width: 80px;
+    height: 40px;
+    width: 40px;
     background: #000;
     font-size: 30px;
     font-weight: 400;
     color: #fff;
-    border-radius: 10px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 2px darkgray;
 }
