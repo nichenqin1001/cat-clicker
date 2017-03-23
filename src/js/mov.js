@@ -25,10 +25,6 @@ $(function () {
             return this.cats;
         },
 
-        currentIndex: function () {
-            return this.index;
-        },
-
         currentCat: function () {
             return this.cats[this.index];
         }
@@ -50,10 +46,6 @@ $(function () {
             return model.currentCat();
         },
 
-        getIndex: function () {
-            return model.currentIndex();
-        },
-
         changeIndex: function (index) {
             model.index = index;
         },
@@ -61,7 +53,7 @@ $(function () {
         changeClickCount: function () {
             var currentCat = octopus.getCurrentCat();
             currentCat.clickCount++;
-            view.$catCounter.text(octopus.getCurrentCat().clickCount);
+            view.$catCounter.text(currentCat.clickCount);
         }
 
     };
@@ -72,11 +64,11 @@ $(function () {
             this.$navBar = $('#navBar');
             this.$container = $('#container');
 
-            view.renderCategory();
-            view.renderCat();
+            this.renderCategory();
+            this.renderCat();
 
             this.$catCategory = $('.cat__category');
-            view.categoryClicker();
+            this.categoryClicker();
 
         },
 
@@ -126,7 +118,6 @@ $(function () {
 
         imgClicker: function () {
             this.$catImg.on('click', function () {
-                console.log('1');
                 octopus.changeClickCount();
             });
         }
