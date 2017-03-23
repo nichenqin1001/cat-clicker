@@ -15,7 +15,7 @@ body {
     justify-content: center;
     align-items: center;
     top: 8px;
-    right: 8px;
+    right: 216px;
     bottom: 8px;
     left: 216px;
     display: flex;
@@ -65,15 +65,19 @@ body {
     }
 }
 
-.nav-bar {
+.nav-bar,
+.admin {
     position: fixed;
     top: 8px;
-    left: 8px;
     bottom: 8px;
     width: 200px;
     padding: 10px;
     background: #F7F9F9;
     border-radius: 5px;
+}
+
+.nav-bar {
+    left: 8px;
 }
 
 .cat__category {
@@ -82,4 +86,12 @@ body {
     margin-bottom: 10px;
     width: 100%;
     height: 19%;
+}
+
+.admin {
+    right: 8px;
+}
+
+.admin__area {
+    display: none;
 }

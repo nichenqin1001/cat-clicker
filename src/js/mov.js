@@ -36,6 +36,7 @@ $(function () {
         init: function () {
             model.init();
             view.init();
+            adminView.init();
         },
 
         getCats: function () {
@@ -54,7 +55,15 @@ $(function () {
             var currentCat = octopus.getCurrentCat();
             currentCat.clickCount++;
             view.$catCounter.text(currentCat.clickCount);
-        }
+        },
+
+        showAdminArea: function () {
+            adminView.$adminArea.show();
+        },
+
+        hideAdminArea: function () {
+            adminView.$adminArea.hide();
+        },
 
     };
 
@@ -113,13 +122,60 @@ $(function () {
 
                 octopus.changeIndex(index);
                 view.renderCat();
+                adminView.renderInput();
             });
         },
 
         imgClicker: function () {
             this.$catImg.on('click', function () {
                 octopus.changeClickCount();
+                adminView.renderInput();
             });
+        }
+
+    };
+
+    var adminView = {
+
+        init: function () {
+            this.$adminBtn = $('#adminBtn');
+            this.$adminArea = $('#adminArea');
+            this.$catName = $('#catName');
+            this.$catSrc = $('#catSrc');
+            this.$clickCount = $('#clickCount');
+            this.$adminConfirm = $('#adminConfirm');
+            this.$adminCancel = $('#adminCancel');
+
+            this.$adminBtn.on('click', function () {
+                octopus.showAdminArea();
+                adminView.renderInput();
+            });
+
+            this.$adminCancel.on('click', function () {
+                octopus.hideAdminArea();
+            });
+
+            this.$adminConfirm.on('click', function () {
+                var newName = adminView.$catName.val();
+                var newSrc = adminView.$catSrc.val();
+                var newCount = adminView.$clickCount.val();
+
+                var cats = octopus.getCats();
+                cats.forEach(function (cat, index) {
+                    if (newName === cat.name) {
+                        octopus.changeIndex(index);
+                        view.renderCat();
+                        adminView.renderInput();
+                    }
+                });
+            });
+        },
+
+        renderInput: function () {
+            var currentCat = octopus.getCurrentCat();
+            this.$catName.val(currentCat.name);
+            this.$catSrc.val(currentCat.src);
+            this.$clickCount.val(currentCat.clickCount);
         }
 
     };
