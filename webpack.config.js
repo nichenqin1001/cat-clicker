@@ -37,7 +37,7 @@ module.exports = {
             ko: 'knockout'
         }),
         new HtmlWebpackPlugin({
-            template: 'index.html'
+            template: 'ko.html'
         }),
         new CopyWebpackPlugin([{
             from: './src/images/',

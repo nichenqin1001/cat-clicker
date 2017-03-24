@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cat Clicker</title>
+</head>
+
+<body>
+    <nav class="nav-bar" data-bind="foreach: catList">
+        <img class="cat__category" alt="" data-bind="click: $parent.switchCat, attr: {src: $data.src}">
+    </nav>
+    <div class="container" data-bind="with: currentCat">
+        <img class="cat__img" data-bind="attr: {src: src}, click: $parent.clickCounter">
+        <div class="cat__name" data-bind="text: name"></div>
+        <div class="cat__counter" data-bind="text: clickCount"></div>
+    </div>
+    <div id="admin" class="admin">
+        <button data-bind="click: toggleAdminArea" type="button">Admin</button>
+        <div data-bind="if: adminArea" class="admin__area">
+            <input data-bind="value: name" type="text" placeholder="cat name">
+            <input id="catSrc" type="text" placeholder="cat src">
+            <input id="clickCount" type="text" placeholder="click count">
+            <button id="adminConfirm" type="button">confirm</button>
+            <button id="adminCancel" type="button">cancel</button>
+        </div>
+    </div>
+</body>
+
+</html>
